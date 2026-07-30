@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Add.btn">
+<rect id="block" width="24" height="24" fill="url(#paint0_linear_0_81)"/>
+<path id="line" d="M0.5 24V0M0 0.5H24" stroke="#ADADAD"/>
+<path id="add" d="M12.5 7.5V17.5M7.5 12.5H17.5" stroke="#8B8A8B" stroke-linecap="square"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_81" x1="12" y1="0" x2="12" y2="24" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D5D4D5"/>
+<stop offset="1" stop-color="#C7C6C7"/>
+</linearGradient>
+</defs>
+</svg>

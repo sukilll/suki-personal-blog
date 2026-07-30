@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#79a2c5" />
+  <meta name="description" content="Suki 的个人桌面：产品、设计、写作，以及还在生长的想法。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Suki's Desktop" />
+  <meta property="og:description" content="产品、设计、写作，以及还在生长的想法。" />
+  <meta property="og:image" content="__SITE_ORIGIN__/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Suki's Desktop" />
+  <meta name="twitter:description" content="产品、设计、写作，以及还在生长的想法。" />
+  <meta name="twitter:image" content="__SITE_ORIGIN__/assets/og.png" />
+  <title>Suki's Desktop</title>
+  <link rel="preload" href="assets/desktop/wallpaper.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <header class="menu-bar" aria-label="macOS 菜单栏">
+      <div class="menu-leading">
+        <button class="menu-apple" type="button" data-menu-action="about" aria-label="关于这个网站"></button>
+        <strong class="active-app-name" id="active-app-name">Safari</strong>
+        <nav class="menu-items" aria-label="应用菜单">
+          <button type="button" data-menu-action="file">File</button>
+          <button type="button" data-menu-action="edit">Edit</button>
+          <button type="button" data-menu-action="view">View</button>
+          <button type="button" data-menu-action="go">Go</button>
+          <button type="button" data-menu-action="window">Window</button>
+          <button type="button" data-menu-action="help">Help</button>
+        </nav>
+      </div>
+      <div class="menu-trailing" aria-label="系统状态">
+        <span class="status-icon wifi" aria-hidden="true"></span>
+        <span class="status-icon search" aria-hidden="true"></span>
+        <span class="status-icon account" aria-hidden="true"></span>
+        <span class="status-icon control" aria-hidden="true"></span>
+        <time id="menu-clock">Sun Jul 26&nbsp;&nbsp;9:41 AM</time>
+      </div>
+    </header>
+
+    <main class="workspace" aria-label="Suki 的桌面">
+      <section class="mac-window safari-window is-active" id="safari-window" data-window="Safari" aria-label="Safari 浏览器">
+        <div class="safari-toolbar window-drag-handle">
+          <div class="traffic-controls" aria-label="窗口控制">
+            <img src="assets/desktop/window-controls.svg" alt="" />
+            <button class="traffic-hit close-hit" type="button" data-window-action="close" aria-label="关闭 Safari"></button>
+            <button class="traffic-hit minimize-hit" type="button" data-window-action="minimize" aria-label="最小化 Safari"></button>
+            <button class="traffic-hit maximize-hit" type="button" data-window-action="maximize" aria-label="放大 Safari"></button>
+          </div>
+          <div class="browser-leading">
+            <button class="toolbar-image-button" type="button" data-browser-action="back" aria-label="返回首页">
+              <img src="assets/desktop/back-button.svg" alt="" />
+            </button>
+            <button class="toolbar-image-button" type="button" data-browser-action="forward" aria-label="继续浏览">
+              <img src="assets/desktop/forward-button.svg" alt="" />
+            </button>
+            <button class="toolbar-image-button option-button" type="button" data-browser-action="options" aria-label="浏览器选项">
+              <img src="assets/desktop/options-button.svg" alt="" />
+            </button>
+          </div>
+          <div class="address-bar" aria-label="地址栏">
+            <span class="address-lock" aria-hidden="true"></span>
+            <span>suki.page</span>
+            <button type="button" data-browser-action="refresh" aria-label="刷新">
+              <img src="assets/desktop/refresh.svg" alt="" />
+            </button>
+          </div>
+          <div class="browser-trailing">
+            <button class="toolbar-image-button share-button" type="button" data-browser-action="share" aria-label="分享网站">
+              <img src="assets/desktop/share-button.svg" alt="" />
+            </button>
+            <button class="toolbar-image-button search-button" type="button" data-browser-action="search" aria-label="查找内容">
+              <img src="assets/desktop/view-search-button.svg" alt="" />
+            </button>
+            <button class="toolbar-image-button add-button" type="button" data-browser-action="add" aria-label="新建标签页">
+              <img src="assets/desktop/add-button.svg" alt="" />
+            </button>
+          </div>
+        </div>
+
+        <div class="safari-viewport" id="safari-viewport" tabindex="0">
+          <section class="safari-hero" aria-labelledby="hero-title">
+            <h1 id="hero-title">What makes you.</h1>
+            <button class="discover-button" type="button" data-scroll-to="profile">Discover Suki</button>
+          </section>
+
+          <div class="browser-site">
+            <section class="profile-section" id="profile">
+              <div class="profile-heading">
+                <img src="assets/suki-avatar.png" alt="Suki 在雪地中" />
+                <p class="eyebrow">PRODUCT · DESIGN · WRITING</p>
+                <h2>Hi, I am Suki.<br />Nice to meet you.</h2>
+              </div>
+              <div class="profile-copy">
+                <p>产品负责人，也做设计。现在在 Today AI 负责产品，同时持续做 Monspeak。</p>
+                <p>我喜欢把模糊的问题，做成有人愿意每天打开的东西。这里放产品笔记、工作经历和一些还在生长的想法。</p>
+                <div class="profile-links">
+                  <a href="#writing">Writing</a>
+                  <a href="#career">Career</a>
+                  <a href="https://m.okjike.com/users/5F031897-700A-47B0-871D-8BDC4C23EF7D" target="_blank" rel="noopener">Jike ↗</a>
+                </div>
+              </div>
+            </section>
+
+            <section class="writing-section" id="writing">
+              <div class="section-label">SELECTED WRITING</div>
+              <article class="featured-writing">
+                <div>
+                  <span>No. 03 · 2025</span>
+                  <h3>做共识，还是做非共识</h3>
+                  <p class="writing-subtitle">On consensus and the contrarian</p>
+                </div>
+                <div>
+                  <p>大公司适合做共识赛道，找后发优势；小公司只能做非共识赛道，在窗口期里建立壁垒。它们面对的不是同一道选择题。</p>
+                  <button type="button" data-open-essay>Read article →</button>
+                </div>
+              </article>
+            </section>
+
+            <section class="notes-section" id="notes">
+              <div class="section-label">PRODUCT NOTES</div>
+              <div class="note-grid">
+                <button class="note-card image-note" type="button" data-open-note-image>
+                  <img src="assets/monica-2-product-thinking.png" alt="" />
+                  <span>Monica 2.0 产品思考</span>
+                </button>
+                <button class="note-card" type="button" data-open-essay>
+                  <small>No. 03 · 2025</small>
+                  <strong>做共识，还是做非共识</strong>
+                  <span>两种公司，两条路。</span>
+                </button>
+                <button class="note-card" type="button" data-note-title="从 Monica 到 Manus">
+                  <small>IN QUEUE</small>
+                  <strong>从 Monica 到 Manus</strong>
+                  <span>产品如何补上模型还做不到的部分。</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="career-section" id="career">
+              <div class="section-label">CAREER</div>
+              <div class="career-list">
+                <div><strong>Today AI</strong><span>Product Lead · 现在</span></div>
+                <div><strong>Monspeak</strong><span>Founder / Product &amp; Design · 2024 — 现在</span></div>
+                <div><strong>Microsoft</strong><span>PM · 2024 — 2025</span></div>
+                <div><strong>Monica</strong><span>Product &amp; Design Lead · 2022 — 2023</span></div>
+                <div><strong>语雀 / Yuque</strong><span>Design Lead · 2019 — 2021</span></div>
+                <div><strong>Ant Design</strong><span>Designer · 2016 — 2019</span></div>
+              </div>
+            </section>
+
+            <footer class="site-footer">© 2026 Suki · Made like a Mac desktop.</footer>
+          </div>
+        </div>
+      </section>
+
+      <section class="mac-window app-window" id="app-window" data-window="" hidden aria-live="polite">
+        <div class="compact-toolbar window-drag-handle">
+          <div class="traffic-controls" aria-label="窗口控制">
+            <img src="assets/desktop/window-controls.svg" alt="" />
+            <button class="traffic-hit close-hit" type="button" data-app-window-action="close" aria-label="关闭窗口"></button>
+            <button class="traffic-hit minimize-hit" type="button" data-app-window-action="minimize" aria-label="最小化窗口"></button>
+            <button class="traffic-hit maximize-hit" type="button" data-app-window-action="maximize" aria-label="放大窗口"></button>
+          </div>
+          <strong id="app-window-title">Finder</strong>
+        </div>
+        <div class="app-window-body">
+          <img id="app-window-icon" src="assets/icons/finder.png" alt="" />
+          <p class="eyebrow">DESKTOP APP</p>
+          <h2 id="app-window-heading">Finder</h2>
+          <p id="app-window-copy">这里会成为你的项目与作品目录。</p>
+          <span>App 已经可以打开，内容会在下一版接入。</span>
+        </div>
+        <section class="music-player" id="music-player" hidden aria-label="iPod Music player">
+          <div class="ipod-shell">
+            <div class="ipod-screen">
+              <div class="ipod-status"><span id="music-state-label">PAUSED</span><span id="music-track-index">01 / 03</span></div>
+              <div class="album-art" id="music-album-art"><span></span></div>
+              <p class="music-kicker">SUKI'S DESK MIX</p>
+              <h2 id="music-track-title">A Slow Morning</h2>
+              <p id="music-track-artist">Untitled playlist</p>
+              <div class="music-progress" aria-label="播放进度"><span id="music-progress-fill"></span></div>
+              <div class="music-times"><span id="music-elapsed">0:00</span><span id="music-duration">3:42</span></div>
+            </div>
+            <div class="click-wheel" id="click-wheel" aria-label="iPod click wheel">
+              <button class="wheel-button wheel-menu" type="button" data-music-action="menu">MENU</button>
+              <button class="wheel-button wheel-prev" type="button" data-music-action="prev" aria-label="上一首">⏮</button>
+              <button class="wheel-button wheel-next" type="button" data-music-action="next" aria-label="下一首">⏭</button>
+              <button class="wheel-button wheel-play" type="button" data-music-action="toggle" aria-label="播放或暂停">▶</button>
+              <button class="wheel-center" type="button" data-music-action="toggle" aria-label="播放或暂停"><span id="music-center-label">▶</span></button>
+            </div>
+          </div>
+          <p class="music-hint">转动圆盘切歌 · 点击中间播放</p>
+        </section>
+      </section>
+
+      <section class="launchpad" id="launchpad" hidden aria-label="启动台">
+        <button class="launchpad-backdrop" type="button" data-close-launchpad aria-label="关闭启动台"></button>
+        <div class="launchpad-panel">
+          <h2>Suki’s Desktop</h2>
+          <div class="launchpad-apps" id="launchpad-apps"></div>
+          <button class="launchpad-close" type="button" data-close-launchpad>Close Launchpad</button>
+        </div>
+      </section>
+
+      <section class="reader-modal" id="reader-modal" hidden aria-label="文章阅读器">
+        <button class="reader-backdrop" type="button" data-close-reader aria-label="关闭文章"></button>
+        <article class="reader-paper">
+          <button class="reader-close" type="button" data-close-reader aria-label="关闭文章">×</button>
+          <p class="eyebrow">NO. 03 · 2025</p>
+          <h2>做共识，还是做非共识</h2>
+          <p class="reader-subtitle">On consensus and the contrarian — two companies, two roads.</p>
+          <p class="reader-lede">大公司每天 FOMO 自己怎么这么慢，然后病急乱出拳浪费资源；创业公司每天担心自己壁垒太薄。两种焦虑长得不一样，根源其实是同一件事：没想清楚自己适合走哪条路。</p>
+          <p><strong>大公司适合做共识赛道，找后发优势。</strong>已有的客户群、品牌、渠道和组织能力，能让它在共识形成后整合资源、后来居上。</p>
+          <p><strong>小公司只能做非共识赛道。</strong>在大公司还没反应过来的时候，用速度博得先机，再在稀缺的窗口期里建立技术、数据、生态或用户心智。</p>
+          <p>重点是想清楚各自的优势在哪，在各自的生态位上找准发力点。不要拿自己的短板和他人的长板拼。</p>
+          <a href="https://m.okjike.com/users/5F031897-700A-47B0-871D-8BDC4C23EF7D" target="_blank" rel="noopener">在即刻继续阅读 ↗</a>
+        </article>
+      </section>
+
+      <section class="image-modal" id="image-modal" hidden aria-label="产品笔记图片">
+        <button class="reader-backdrop" type="button" data-close-image aria-label="关闭图片"></button>
+        <div class="image-paper">
+          <button class="reader-close" type="button" data-close-image aria-label="关闭图片">×</button>
+          <img src="assets/monica-2-product-thinking.png" alt="Monica 2.0 产品思考" />
+        </div>
+      </section>
+    </main>
+
+    <nav class="dock" aria-label="应用程序坞">
+      <button class="dock-app" type="button" data-app="Finder" data-icon="assets/icons/finder.png" aria-label="打开 Finder">
+        <img src="assets/icons/finder.png" alt="" />
+        <span>Finder</span>
+      </button>
+      <button class="dock-app launchpad-dock-icon" type="button" data-app="Launchpad" aria-label="打开 Launchpad">
+        <span class="launchpad-icon" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+        <span>Launchpad</span>
+      </button>
+      <button class="dock-app is-running" type="button" data-app="Safari" data-icon="assets/icons/safari.png" aria-label="打开 Safari">
+        <img src="assets/icons/safari.png" alt="" />
+        <span>Safari</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Messages" data-icon="assets/icons/messages.png" aria-label="打开 Messages">
+        <img src="assets/icons/messages.png" alt="" />
+        <span>Messages</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Mail" data-icon="assets/icons/mail.png" aria-label="打开 Mail">
+        <img src="assets/icons/mail.png" alt="" />
+        <span>Mail</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Maps" data-icon="assets/icons/maps.png" aria-label="打开 Maps">
+        <img src="assets/icons/maps.png" alt="" />
+        <span>Maps</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Photos" data-icon="assets/icons/photos.png" aria-label="打开 Photos">
+        <img src="assets/icons/photos.png" alt="" />
+        <span>Photos</span>
+      </button>
+      <button class="dock-app" type="button" data-app="FaceTime" data-icon="assets/icons/facetime.png" aria-label="打开 FaceTime">
+        <img src="assets/icons/facetime.png" alt="" />
+        <span>FaceTime</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Calendar" data-icon="assets/icons/calendar.png" aria-label="打开 Calendar">
+        <img src="assets/icons/calendar.png" alt="" />
+        <span>Calendar</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Contacts" data-icon="assets/icons/contacts.png" aria-label="打开 Contacts">
+        <img src="assets/icons/contacts.png" alt="" />
+        <span>Contacts</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Reminders" data-icon="assets/icons/reminders.png" aria-label="打开 Reminders">
+        <img src="assets/icons/reminders.png" alt="" />
+        <span>Reminders</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Notes" data-icon="assets/icons/notes.png" aria-label="打开 Notes">
+        <img src="assets/icons/notes.png" alt="" />
+        <span>Notes</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Freeform" data-icon="assets/icons/freeform.png" aria-label="打开 Freeform">
+        <img src="assets/icons/freeform.png" alt="" />
+        <span>Freeform</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Music" data-icon="assets/icons/music.png" aria-label="打开 Music">
+        <img src="assets/icons/music.png" alt="" />
+        <span>Music</span>
+      </button>
+      <button class="dock-app" type="button" data-app="App Store" data-icon="assets/icons/app-store.png" aria-label="打开 App Store">
+        <img src="assets/icons/app-store.png" alt="" />
+        <span>App Store</span>
+      </button>
+      <span class="dock-separator" aria-hidden="true"></span>
+      <button class="dock-app" type="button" data-app="Folder" data-icon="assets/icons/folder.png" aria-label="打开 Folder">
+        <img src="assets/icons/folder.png" alt="" />
+        <span>Folder</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Trash" data-icon="assets/icons/trash.png" aria-label="打开 Trash">
+        <img src="assets/icons/trash.png" alt="" />
+        <span>Trash</span>
+      </button>
+    </nav>
+
+    <div class="desktop-toast" id="desktop-toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

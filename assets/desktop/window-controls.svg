@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="52" height="12" viewBox="0 0 52 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Action.bttn">
+<circle id="close.btn" cx="6" cy="6" r="5.5" fill="#FC615C" stroke="#ED5652"/>
+<circle id="restore.btn" cx="26" cy="6" r="5.5" fill="#FDBE40" stroke="#ECB140"/>
+<circle id="minimize.btn" cx="46" cy="6" r="5.5" fill="#34CA49" stroke="#32BC42"/>
+</g>
+</svg>

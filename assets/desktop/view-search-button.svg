@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="37" height="23" viewBox="0 0 37 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="view.search.btn">
+<g id="view.search.btn_2" filter="url(#filter0_d_0_100)">
+<rect width="37" height="22" rx="3" fill="white"/>
+</g>
+<path id="view" d="M16 6.5V5.5H24V13.5H23M13 8.5H21V16.5H13V8.5Z" stroke="#585858" stroke-linecap="square"/>
+</g>
+<defs>
+<filter id="filter0_d_0_100" x="0" y="0" width="37" height="23" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_100"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_100" result="shape"/>
+</filter>
+</defs>
+</svg>
