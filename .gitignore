@@ -6,3 +6,4 @@ dist
 .env*
 *.tgz
 *-preview.png
+.vercel

@@ -11,12 +11,14 @@ const appCopy = {
   Notes: "这里会放短想法与产品笔记。",
   Freeform: "这里会放还没有名字、但正在生长的想法。",
   Music: "这里会放最近在听的声音。",
+  Stickers: "这里会放一些让桌面更像自己的小贴纸。",
   "App Store": "这里会放做过的产品与可以体验的作品。",
   Folder: "这里会收纳完整作品集。",
   Trash: "暂时没有什么值得丢掉。"
 };
 
 const desktop = document.querySelector("#desktop");
+const workspace = document.querySelector(".workspace");
 const safariWindow = document.querySelector("#safari-window");
 const safariViewport = document.querySelector("#safari-viewport");
 const appWindow = document.querySelector("#app-window");
@@ -26,6 +28,9 @@ const appWindowHeading = document.querySelector("#app-window-heading");
 const appWindowCopy = document.querySelector("#app-window-copy");
 const appWindowIcon = document.querySelector("#app-window-icon");
 const musicPlayer = document.querySelector("#music-player");
+const stickersNote = document.querySelector("#stickers-note");
+const stickerNoteToolbar = document.querySelector("#sticker-note-toolbar");
+const stickerNoteContent = document.querySelector("#sticker-note-content");
 const musicTrackTitle = document.querySelector("#music-track-title");
 const musicTrackArtist = document.querySelector("#music-track-artist");
 const musicTrackIndex = document.querySelector("#music-track-index");
@@ -39,15 +44,55 @@ const activeAppName = document.querySelector("#active-app-name");
 const launchpad = document.querySelector("#launchpad");
 const launchpadApps = document.querySelector("#launchpad-apps");
 const readerModal = document.querySelector("#reader-modal");
+const personalAgentModal = document.querySelector("#personal-agent-modal");
+const todayOriginModal = document.querySelector("#today-origin-modal");
 const imageModal = document.querySelector("#image-modal");
+const imageModalContent = imageModal.querySelector("img");
 const toast = document.querySelector("#desktop-toast");
 const dockButtons = [...document.querySelectorAll(".dock-app")];
 let topZ = 30;
 let toastTimer;
+let musicWindow;
+const genericAppWindows = new Map();
+const photoPreviewObservers = new WeakMap();
 const musicTracks = [
   { title: "Ditto", artist: "NewJeans", duration: 186, color: "#90a867" },
   { title: "Supernatural", artist: "NewJeans", duration: 191, color: "#c68b70" },
   { title: "Luv(sic)", artist: "Nujabes", duration: 222, color: "#789ab8" }
+];
+const lifePhotos = Array.from({ length: 8 }, (_, index) => ({
+  src: `assets/photos/life-${String(index + 1).padStart(2, "0")}.jpg`,
+  alt: `Suki 的生活照片 ${index + 1}`
+}));
+const notesArticles = [
+  {
+    id: "personal-agent",
+    folder: "产品判断",
+    label: "2026.09.03 · PRODUCT THESIS",
+    title: "一个关于 Personal Agent 产品形态的判断，我是怎么推翻、又重新思考它的",
+    subtitle: "On revisiting a thesis about Personal Agent"
+  },
+  {
+    id: "consensus",
+    folder: "产品判断",
+    label: "2025 · PRODUCT NOTE",
+    title: "做共识，还是做非共识",
+    subtitle: "On consensus and the contrarian"
+  },
+  {
+    id: "monica-2",
+    folder: "产品复盘",
+    label: "PRODUCT THINKING",
+    title: "Monica 2.0 产品思考",
+    subtitle: "A visual note on the product's evolution"
+  },
+  {
+    id: "today-origin",
+    folder: "Today AI",
+    label: "2026.10.26 · TODAY AI",
+    title: "从 Monspeak 到 Today：我为什么开始做一个通用 Personal AI",
+    subtitle: "The thesis behind Today AI"
+  }
 ];
 const musicState = { track: 0, elapsed: 0, playing: false };
 
@@ -106,8 +151,9 @@ function openSafari() {
 function closeSafari() {
   safariWindow.classList.add("is-closed");
   safariWindow.classList.remove("is-minimized");
+  safariWindow.classList.remove("is-active");
   setRunning("Safari", false);
-  activeAppName.textContent = appWindow.hidden || appWindow.classList.contains("is-closed") ? "Finder" : appWindow.dataset.window;
+  activeAppName.textContent = document.querySelector(".mac-window.is-active")?.dataset.window || "Finder";
 }
 
 function minimizeWindow(windowElement, appName) {
@@ -118,45 +164,271 @@ function minimizeWindow(windowElement, appName) {
 }
 
 function maximizeWindow(windowElement) {
-  if (windowElement.classList.contains("is-music-window")) return;
+  if (windowElement.classList.contains("is-music-window") || windowElement.classList.contains("is-stickers-window")) return;
   windowElement.classList.toggle("is-maximized");
   focusWindow(windowElement, windowElement.dataset.window);
 }
 
-function openApp(appName, iconSrc) {
+function openStickers() {
   appWindow.hidden = false;
-  appWindow.dataset.window = appName;
+  appWindow.dataset.window = "Stickers";
   appWindow.classList.remove("is-minimized", "is-closed");
-  appWindowTitle.textContent = appName;
-  const isMusic = appName === "Music";
-  appWindow.classList.toggle("is-music-window", isMusic);
-  appWindowBody.hidden = isMusic;
-  musicPlayer.hidden = !isMusic;
+  appWindow.classList.remove("is-music-window");
+  appWindow.classList.add("is-stickers-window");
+  appWindowBody.hidden = true;
+  stickersNote.hidden = false;
 
-  if (isMusic) {
-    renderMusicPlayer();
-  } else {
-    appWindowHeading.textContent = appName;
-    appWindowCopy.textContent = appCopy[appName] || "这个 App 已经可以打开，内容会在后续版本接入。";
-    appWindowIcon.src = iconSrc;
-    appWindowIcon.alt = `${appName} 图标`;
+  focusWindow(appWindow, "Stickers");
+  setRunning("Stickers", true);
+  bounceDockIcon("Stickers");
+  window.requestAnimationFrame(() => stickerNoteContent.focus());
+}
+
+function ensureMusicWindow() {
+  if (musicWindow) return musicWindow;
+
+  musicWindow = document.createElement("section");
+  musicWindow.className = "mac-window app-window is-music-window";
+  musicWindow.dataset.window = "Music";
+  musicWindow.setAttribute("aria-label", "Music");
+  musicWindow.hidden = true;
+  if (window.innerWidth > 920) {
+    musicWindow.style.left = "calc(50% + 322px)";
+  }
+  workspace.insertBefore(musicWindow, launchpad);
+  musicWindow.append(musicPlayer);
+  registerWindow(musicWindow);
+  return musicWindow;
+}
+
+function openMusic() {
+  const windowElement = ensureMusicWindow();
+  windowElement.hidden = false;
+  windowElement.classList.remove("is-minimized", "is-closed");
+  musicPlayer.hidden = false;
+  renderMusicPlayer();
+  focusWindow(windowElement, "Music");
+  setRunning("Music", true);
+  bounceDockIcon("Music");
+}
+
+function createGenericAppWindow(appName, iconSrc) {
+  const windowElement = document.createElement("section");
+  const windowOffset = (genericAppWindows.size % 5) * 32;
+  const isPhotos = appName === "Photos";
+  const isNotes = appName === "Notes";
+  windowElement.className = "mac-window app-window";
+  windowElement.classList.toggle("is-photos-window", isPhotos);
+  windowElement.classList.toggle("is-notes-window", isNotes);
+  windowElement.dataset.window = appName;
+  windowElement.setAttribute("aria-label", `${appName} 窗口`);
+  windowElement.style.left = isPhotos || isNotes ? "50%" : `calc(50% + ${windowOffset - 96}px)`;
+  windowElement.style.top = isPhotos || isNotes ? "10vh" : `calc(15vh + ${windowOffset}px)`;
+  windowElement.innerHTML = `
+    <div class="compact-toolbar window-drag-handle">
+      <div class="traffic-controls" aria-label="窗口控制">
+        <img src="assets/desktop/window-controls.svg" alt="" />
+        <button class="traffic-hit close-hit" type="button" data-app-window-action="close" aria-label="关闭窗口"></button>
+        <button class="traffic-hit minimize-hit" type="button" data-app-window-action="minimize" aria-label="最小化窗口"></button>
+        <button class="traffic-hit maximize-hit" type="button" data-app-window-action="maximize" aria-label="放大窗口"></button>
+      </div>
+      <strong></strong>
+    </div>
+    ${isPhotos ? `
+      <div class="photos-app">
+        <aside class="photos-sidebar" aria-label="照片图库">
+          <p>LIBRARY</p>
+          <span class="is-selected">Photos</span>
+          <span>Favourites</span>
+          <span>Recents</span>
+        </aside>
+        <section class="photos-main" aria-label="生活照片">
+          <div class="photos-gallery-view">
+            <div class="photos-heading"><h2>Life</h2><span>${lifePhotos.length} Photos</span></div>
+            <div class="photo-grid">
+              ${lifePhotos.map((photo, index) => `<button class="photo-tile" type="button" data-life-photo-index="${index}" aria-label="查看${photo.alt}"><img src="${photo.src}" alt="${photo.alt}" /></button>`).join("")}
+            </div>
+          </div>
+          <div class="photo-preview-view" hidden>
+            <div class="photo-preview-toolbar">
+              <button class="photo-preview-back" type="button" data-close-photo-preview aria-label="返回照片列表">‹</button>
+              <span class="photo-preview-title">Life · <span data-photo-preview-count>1 / ${lifePhotos.length}</span></span>
+            </div>
+            <div class="photo-preview-canvas"><img data-photo-preview-image src="${lifePhotos[0].src}" alt="${lifePhotos[0].alt}" /></div>
+            <div class="photo-filmstrip" aria-label="照片缩略图">
+              ${lifePhotos.map((photo, index) => `<button type="button" data-photo-preview-index="${index}" aria-label="查看${photo.alt}"><img src="${photo.src}" alt="" /></button>`).join("")}
+            </div>
+          </div>
+        </section>
+      </div>
+    ` : isNotes ? `
+      <div class="notes-app">
+        <aside class="notes-sidebar" aria-label="备忘录目录">
+          <div class="notes-sidebar-brand">
+            <span class="notes-brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <strong>Suki's Notes</strong>
+          </div>
+          <label class="notes-search" aria-label="搜索文章">
+            <span class="notes-search-icon" aria-hidden="true"></span>
+            <input type="search" data-notes-search placeholder="Search" autocomplete="off" />
+          </label>
+          <p class="notes-toc-label">Table of Contents</p>
+          <div class="notes-tree" role="tree" aria-label="文章目录">
+            <p class="notes-tree-root">Suki's Writing</p>
+            ${[...new Set(notesArticles.map((article) => article.folder))].map((folder) => `
+              <section class="notes-tree-group" data-notes-folder="${folder}">
+                <button class="notes-tree-folder" type="button" data-toggle-notes-folder="${folder}" aria-expanded="true">
+                  <span class="notes-folder-chevron" aria-hidden="true">⌄</span>
+                  <span>${folder}</span>
+                  <small>${notesArticles.filter((article) => article.folder === folder).length}</small>
+                </button>
+                <div class="notes-tree-children">
+                  ${notesArticles.filter((article) => article.folder === folder).map((article) => `
+                    <button class="notes-tree-item" type="button" data-note-article="${article.id}" role="treeitem">
+                      <strong>${article.title}</strong>
+                      <span>${article.label.split(" · ")[0]}</span>
+                    </button>
+                  `).join("")}
+                </div>
+              </section>
+            `).join("")}
+          </div>
+        </aside>
+        <section class="notes-main" aria-label="博客正文">
+          <article class="notes-reader" data-notes-reader></article>
+        </section>
+      </div>
+    ` : `
+      <div class="app-window-body">
+        <img alt="" />
+        <p class="eyebrow">DESKTOP APP</p>
+        <h2></h2>
+        <p></p>
+        <span>App 已经可以打开，内容会在后续版本接入。</span>
+      </div>
+    `}
+  `;
+
+  windowElement.querySelector(".compact-toolbar strong").textContent = appName;
+  if (!isPhotos && !isNotes) {
+    windowElement.querySelector(".app-window-body h2").textContent = appName;
+    windowElement.querySelector(".app-window-body > p:not(.eyebrow)").textContent = appCopy[appName] || "这个 App 已经可以打开，内容会在后续版本接入。";
+    const icon = windowElement.querySelector(".app-window-body > img");
+    icon.src = iconSrc;
+    icon.alt = `${appName} 图标`;
   }
 
-  focusWindow(appWindow, appName);
+  workspace.insertBefore(windowElement, launchpad);
+  if (isPhotos) preparePhotoPreview(windowElement.querySelector(".photos-main"));
+  if (isNotes) prepareNotesApp(windowElement);
+  registerWindow(windowElement);
+  genericAppWindows.set(appName, windowElement);
+  return windowElement;
+}
+
+function articleBodyFromModal(modalId) {
+  const source = document.querySelector(`${modalId} .reader-paper`);
+  if (!source) return "";
+
+  const content = source.cloneNode(true);
+  content.querySelector(".reader-close")?.remove();
+  content.querySelectorAll(".eyebrow, h2, .reader-subtitle").forEach((element) => element.remove());
+  return content.innerHTML;
+}
+
+function noteArticleBody(articleId) {
+  if (articleId === "personal-agent") return articleBodyFromModal("#personal-agent-modal");
+  if (articleId === "consensus") return articleBodyFromModal("#reader-modal");
+  if (articleId === "today-origin") return articleBodyFromModal("#today-origin-modal");
+  if (articleId === "monica-2") {
+    return `
+      <figure class="notes-visual-entry">
+        <img src="assets/monica-2-product-thinking.png" alt="Monica 2.0 产品思考" />
+        <figcaption>Monica 2.0 · 产品思考与路线</figcaption>
+      </figure>
+      <p>一份关于 Monica 2.0 的产品思考：从发展历程，到 AI 市场变化、Copilot 助手、个性化与 All in one 工作台。</p>
+    `;
+  }
+  return "";
+}
+
+function renderNotesArticle(notesWindow, articleId) {
+  const article = notesArticles.find((item) => item.id === articleId) || notesArticles[0];
+  const reader = notesWindow.querySelector("[data-notes-reader]");
+  if (!reader || !article) return;
+
+  reader.innerHTML = `
+    <header class="notes-reader-header">
+      <p>${article.label}</p>
+      <h2>${article.title}</h2>
+      <span>${article.subtitle}</span>
+    </header>
+    <div class="notes-reader-content">${noteArticleBody(article.id)}</div>
+  `;
+  reader.scrollTop = 0;
+  notesWindow.querySelectorAll("[data-note-article]").forEach((button) => {
+    button.classList.toggle("is-selected", button.dataset.noteArticle === article.id);
+  });
+}
+
+function prepareNotesApp(notesWindow) {
+  renderNotesArticle(notesWindow, notesArticles[0].id);
+}
+
+function fitPhotoPreview(photosMain) {
+  const canvas = photosMain.querySelector(".photo-preview-canvas");
+  const image = photosMain.querySelector("[data-photo-preview-image]");
+  if (!canvas || !image?.naturalWidth || !canvas.clientWidth || !canvas.clientHeight) return;
+
+  const availableWidth = Math.max(1, canvas.clientWidth - 24);
+  const availableHeight = Math.max(1, canvas.clientHeight - 24);
+  const scale = Math.min(availableWidth / image.naturalWidth, availableHeight / image.naturalHeight);
+  image.style.width = `${Math.floor(image.naturalWidth * scale)}px`;
+  image.style.height = `${Math.floor(image.naturalHeight * scale)}px`;
+}
+
+function preparePhotoPreview(photosMain) {
+  const canvas = photosMain.querySelector(".photo-preview-canvas");
+  const image = photosMain.querySelector("[data-photo-preview-image]");
+  image.addEventListener("load", () => fitPhotoPreview(photosMain));
+  const observer = new ResizeObserver(() => fitPhotoPreview(photosMain));
+  observer.observe(canvas);
+  photoPreviewObservers.set(photosMain, observer);
+}
+
+function openGenericApp(appName, iconSrc) {
+  const windowElement = genericAppWindows.get(appName) || createGenericAppWindow(appName, iconSrc);
+  windowElement.hidden = false;
+  windowElement.classList.remove("is-minimized", "is-closed");
+  focusWindow(windowElement, appName);
   setRunning(appName, true);
   bounceDockIcon(appName);
 }
 
-function closeAppWindow() {
-  const appName = appWindow.dataset.window;
+function openApp(appName, iconSrc) {
+  if (appName === "Stickers") {
+    openStickers();
+    return;
+  }
+
+  if (appName === "Music") {
+    openMusic();
+    return;
+  }
+
+  openGenericApp(appName, iconSrc);
+}
+
+function closeAppWindow(windowElement) {
+  const appName = windowElement.dataset.window;
   if (appName === "Music") {
     musicState.playing = false;
     renderMusicPlayer();
   }
-  appWindow.classList.add("is-closed");
-  appWindow.classList.remove("is-minimized");
+  windowElement.classList.add("is-closed");
+  windowElement.classList.remove("is-minimized", "is-active");
   setRunning(appName, false);
-  activeAppName.textContent = safariWindow.classList.contains("is-closed") || safariWindow.classList.contains("is-minimized") ? "Finder" : "Safari";
+  activeAppName.textContent = document.querySelector(".mac-window.is-active")?.dataset.window || "Finder";
 }
 
 function formatDuration(seconds) {
@@ -304,6 +576,8 @@ function handleMenuAction(action) {
 function closeOverlays() {
   launchpad.hidden = true;
   readerModal.hidden = true;
+  personalAgentModal.hidden = true;
+  todayOriginModal.hidden = true;
   imageModal.hidden = true;
 }
 
@@ -359,10 +633,10 @@ function makeMusicDraggable() {
   let dragState = null;
 
   musicPlayer.addEventListener("pointerdown", (event) => {
-    if (!appWindow.classList.contains("is-music-window") || event.target.closest("button, #click-wheel")) return;
+    if (!musicWindow || event.target.closest("button, #click-wheel")) return;
 
-    const rect = appWindow.getBoundingClientRect();
-    const workspaceRect = document.querySelector(".workspace").getBoundingClientRect();
+    const rect = musicWindow.getBoundingClientRect();
+    const workspaceRect = workspace.getBoundingClientRect();
     dragState = {
       pointerId: event.pointerId,
       offsetX: event.clientX - rect.left,
@@ -370,23 +644,23 @@ function makeMusicDraggable() {
       workspaceTop: workspaceRect.top
     };
 
-    appWindow.style.left = `${rect.left}px`;
-    appWindow.style.top = `${rect.top - workspaceRect.top}px`;
-    appWindow.style.transform = "none";
+    musicWindow.style.left = `${rect.left}px`;
+    musicWindow.style.top = `${rect.top - workspaceRect.top}px`;
+    musicWindow.style.transform = "none";
     musicPlayer.classList.add("is-dragging");
     musicPlayer.setPointerCapture(event.pointerId);
-    focusWindow(appWindow, "Music");
+    focusWindow(musicWindow, "Music");
   });
 
   musicPlayer.addEventListener("pointermove", (event) => {
     if (!dragState || event.pointerId !== dragState.pointerId) return;
 
-    const maxLeft = Math.max(0, window.innerWidth - appWindow.offsetWidth);
-    const maxTop = Math.max(0, window.innerHeight - dragState.workspaceTop - appWindow.offsetHeight - 80);
+    const maxLeft = Math.max(0, window.innerWidth - musicWindow.offsetWidth);
+    const maxTop = Math.max(0, window.innerHeight - dragState.workspaceTop - musicWindow.offsetHeight - 80);
     const nextLeft = Math.min(maxLeft, Math.max(0, event.clientX - dragState.offsetX));
     const nextTop = Math.min(maxTop, Math.max(0, event.clientY - dragState.offsetY - dragState.workspaceTop));
-    appWindow.style.left = `${nextLeft}px`;
-    appWindow.style.top = `${nextTop}px`;
+    musicWindow.style.left = `${nextLeft}px`;
+    musicWindow.style.top = `${nextTop}px`;
   });
 
   const stopDragging = (event) => {
@@ -421,12 +695,74 @@ document.querySelectorAll("[data-window-action]").forEach((button) => {
   });
 });
 
-document.querySelectorAll("[data-app-window-action]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const action = button.dataset.appWindowAction;
-    if (action === "close") closeAppWindow();
-    if (action === "minimize") minimizeWindow(appWindow, appWindow.dataset.window);
-    if (action === "maximize") maximizeWindow(appWindow);
+desktop.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-app-window-action]");
+  if (!button) return;
+  const windowElement = button.closest(".mac-window");
+  if (!windowElement) return;
+  const action = button.dataset.appWindowAction;
+  if (action === "close") closeAppWindow(windowElement);
+  if (action === "minimize") minimizeWindow(windowElement, windowElement.dataset.window);
+  if (action === "maximize") maximizeWindow(windowElement);
+});
+
+desktop.addEventListener("click", (event) => {
+  const closePreview = event.target.closest("[data-close-photo-preview]");
+  if (closePreview) {
+    const photosMain = closePreview.closest(".photos-main");
+    photosMain.querySelector(".photos-gallery-view").hidden = false;
+    photosMain.querySelector(".photo-preview-view").hidden = true;
+    return;
+  }
+
+  const photoButton = event.target.closest("[data-life-photo-index], [data-photo-preview-index]");
+  if (!photoButton) return;
+  const index = Number(photoButton.dataset.lifePhotoIndex ?? photoButton.dataset.photoPreviewIndex);
+  const photosMain = photoButton.closest(".photos-main");
+  if (!photosMain || !lifePhotos[index]) return;
+
+  const photo = lifePhotos[index];
+  photosMain.querySelector("[data-photo-preview-image]").src = photo.src;
+  photosMain.querySelector("[data-photo-preview-image]").alt = photo.alt;
+  photosMain.querySelector("[data-photo-preview-count]").textContent = `${index + 1} / ${lifePhotos.length}`;
+  photosMain.querySelectorAll("[data-photo-preview-index]").forEach((button) => {
+    button.classList.toggle("is-selected", Number(button.dataset.photoPreviewIndex) === index);
+  });
+  photosMain.querySelector(".photos-gallery-view").hidden = true;
+  photosMain.querySelector(".photo-preview-view").hidden = false;
+  window.requestAnimationFrame(() => fitPhotoPreview(photosMain));
+});
+
+desktop.addEventListener("click", (event) => {
+  const folderButton = event.target.closest("[data-toggle-notes-folder]");
+  if (folderButton) {
+    const group = folderButton.closest(".notes-tree-group");
+    const isCollapsed = group.classList.toggle("is-collapsed");
+    folderButton.setAttribute("aria-expanded", String(!isCollapsed));
+    return;
+  }
+
+  const articleButton = event.target.closest("[data-note-article]");
+  if (!articleButton) return;
+  const notesWindow = articleButton.closest(".is-notes-window");
+  if (notesWindow) renderNotesArticle(notesWindow, articleButton.dataset.noteArticle);
+});
+
+desktop.addEventListener("input", (event) => {
+  const search = event.target.closest("[data-notes-search]");
+  if (!search) return;
+
+  const notesWindow = search.closest(".is-notes-window");
+  const tree = notesWindow?.querySelector(".notes-tree");
+  if (!notesWindow || !tree) return;
+
+  const query = search.value.trim().toLocaleLowerCase();
+  tree.classList.toggle("is-searching", Boolean(query));
+  notesWindow.querySelectorAll("[data-note-article]").forEach((button) => {
+    button.hidden = Boolean(query) && !button.textContent.toLocaleLowerCase().includes(query);
+  });
+  notesWindow.querySelectorAll(".notes-tree-group").forEach((group) => {
+    group.hidden = Boolean(query) && ![...group.querySelectorAll("[data-note-article]")].some((button) => !button.hidden);
   });
 });
 
@@ -448,8 +784,22 @@ document.querySelectorAll("[data-open-essay]").forEach((button) => {
   });
 });
 
+document.querySelectorAll("[data-open-personal-agent]").forEach((button) => {
+  button.addEventListener("click", () => {
+    personalAgentModal.hidden = false;
+  });
+});
+
+document.querySelectorAll("[data-open-today-origin]").forEach((button) => {
+  button.addEventListener("click", () => {
+    todayOriginModal.hidden = false;
+  });
+});
+
 document.querySelectorAll("[data-open-note-image]").forEach((button) => {
   button.addEventListener("click", () => {
+    imageModalContent.src = "assets/monica-2-product-thinking.png";
+    imageModalContent.alt = "Monica 2.0 产品思考";
     imageModal.hidden = false;
   });
 });
@@ -511,20 +861,80 @@ document.querySelectorAll("[data-close-launchpad]").forEach((button) => button.a
 document.querySelectorAll("[data-close-reader]").forEach((button) => button.addEventListener("click", () => {
   readerModal.hidden = true;
 }));
+document.querySelectorAll("[data-close-personal-agent]").forEach((button) => button.addEventListener("click", () => {
+  personalAgentModal.hidden = true;
+}));
+document.querySelectorAll("[data-close-today-origin]").forEach((button) => button.addEventListener("click", () => {
+  todayOriginModal.hidden = true;
+}));
 document.querySelectorAll("[data-close-image]").forEach((button) => button.addEventListener("click", () => {
   imageModal.hidden = true;
 }));
 
-document.querySelectorAll(".mac-window").forEach((windowElement) => {
+function registerWindow(windowElement) {
   windowElement.addEventListener("pointerdown", () => {
     if (!windowElement.classList.contains("is-minimized")) {
       focusWindow(windowElement, windowElement.dataset.window);
     }
   });
   makeDraggable(windowElement);
-});
+}
+
+registerWindow(safariWindow);
+registerWindow(appWindow);
 
 makeMusicDraggable();
+
+function makeStickersDraggable() {
+  let dragState = null;
+
+  stickerNoteToolbar.addEventListener("pointerdown", (event) => {
+    if (!appWindow.classList.contains("is-stickers-window") || event.target.closest("button")) return;
+
+    const rect = appWindow.getBoundingClientRect();
+    const workspaceRect = document.querySelector(".workspace").getBoundingClientRect();
+    dragState = {
+      pointerId: event.pointerId,
+      offsetX: event.clientX - rect.left,
+      offsetY: event.clientY - rect.top,
+      workspaceTop: workspaceRect.top
+    };
+
+    appWindow.style.left = `${rect.left}px`;
+    appWindow.style.top = `${rect.top - workspaceRect.top}px`;
+    appWindow.style.transform = "none";
+    stickersNote.classList.add("is-dragging");
+    stickerNoteToolbar.setPointerCapture(event.pointerId);
+    focusWindow(appWindow, "Stickers");
+  });
+
+  stickerNoteToolbar.addEventListener("pointermove", (event) => {
+    if (!dragState || event.pointerId !== dragState.pointerId) return;
+
+    const maxLeft = Math.max(0, window.innerWidth - appWindow.offsetWidth);
+    const maxTop = Math.max(0, window.innerHeight - dragState.workspaceTop - appWindow.offsetHeight - 80);
+    appWindow.style.left = `${Math.min(maxLeft, Math.max(0, event.clientX - dragState.offsetX))}px`;
+    appWindow.style.top = `${Math.min(maxTop, Math.max(0, event.clientY - dragState.offsetY - dragState.workspaceTop))}px`;
+  });
+
+  const stopDragging = (event) => {
+    if (!dragState || event.pointerId !== dragState.pointerId) return;
+    stickerNoteToolbar.releasePointerCapture(event.pointerId);
+    stickersNote.classList.remove("is-dragging");
+    dragState = null;
+  };
+
+  stickerNoteToolbar.addEventListener("pointerup", stopDragging);
+  stickerNoteToolbar.addEventListener("pointercancel", stopDragging);
+}
+
+const stickerNoteStorageKey = "suki-sticker-note-v2";
+stickerNoteContent.value = window.localStorage.getItem(stickerNoteStorageKey) ?? stickerNoteContent.value;
+stickerNoteContent.addEventListener("input", () => {
+  window.localStorage.setItem(stickerNoteStorageKey, stickerNoteContent.value);
+});
+
+makeStickersDraggable();
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeOverlays();
@@ -555,4 +965,6 @@ window.setInterval(() => {
 
 if (window.location.hash === "#music") {
   openApp("Music", "assets/icons/music.png");
+} else {
+  openApp("Stickers", "assets/icons/stickers.png");
 }

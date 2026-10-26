@@ -90,12 +90,12 @@
           <div class="browser-site">
             <section class="profile-section" id="profile">
               <div class="profile-heading">
-                <img src="assets/suki-avatar.png" alt="Suki 在雪地中" />
+                <img src="assets/suki-avatar.png" alt="Suki 的插画头像" />
                 <p class="eyebrow">PRODUCT · DESIGN · WRITING</p>
                 <h2>Hi, I am Suki.<br />Nice to meet you.</h2>
               </div>
               <div class="profile-copy">
-                <p>产品负责人，也做设计。现在在 Today AI 负责产品，同时持续做 Monspeak。</p>
+                <p>做产品，也做设计。现在在 Today AI，同时持续做 Monspeak。</p>
                 <p>我喜欢把模糊的问题，做成有人愿意每天打开的东西。这里放产品笔记、工作经历和一些还在生长的想法。</p>
                 <div class="profile-links">
                   <a href="#writing">Writing</a>
@@ -109,13 +109,13 @@
               <div class="section-label">SELECTED WRITING</div>
               <article class="featured-writing">
                 <div>
-                  <span>No. 03 · 2025</span>
-                  <h3>做共识，还是做非共识</h3>
-                  <p class="writing-subtitle">On consensus and the contrarian</p>
+                  <span>2026.09.03 · PRODUCT THESIS</span>
+                  <h3>一个关于 Personal Agent 产品形态的判断，我是怎么推翻、又重新思考它的</h3>
+                  <p class="writing-subtitle">On revisiting a thesis about Personal Agent</p>
                 </div>
                 <div>
-                  <p>大公司适合做共识赛道，找后发优势；小公司只能做非共识赛道，在窗口期里建立壁垒。它们面对的不是同一道选择题。</p>
-                  <button type="button" data-open-essay>Read article →</button>
+                  <p>从「Personal Agent 可能不需要一个很重的 App」出发，到面对 Chat discoverability 与跨 App 割裂，再重新理解产品 thesis 应该如何被真实世界的 signal 校准。</p>
+                  <button type="button" data-open-personal-agent>Read article →</button>
                 </div>
               </article>
             </section>
@@ -132,6 +132,11 @@
                   <strong>做共识，还是做非共识</strong>
                   <span>两种公司，两条路。</span>
                 </button>
+                <button class="note-card" type="button" data-open-today-origin>
+                  <small>2026.10.26 · TODAY AI</small>
+                  <strong>从 Monspeak 到 Today</strong>
+                  <span>我为什么开始思考一个通用 Personal AI。</span>
+                </button>
                 <button class="note-card" type="button" data-note-title="从 Monica 到 Manus">
                   <small>IN QUEUE</small>
                   <strong>从 Monica 到 Manus</strong>
@@ -143,7 +148,7 @@
             <section class="career-section" id="career">
               <div class="section-label">CAREER</div>
               <div class="career-list">
-                <div><strong>Today AI</strong><span>Product Lead · 现在</span></div>
+                <div><strong>Today AI</strong><span>Founding Product Manager · 现在</span></div>
                 <div><strong>Monspeak</strong><span>Founder / Product &amp; Design · 2024 — 现在</span></div>
                 <div><strong>Microsoft</strong><span>PM · 2024 — 2025</span></div>
                 <div><strong>Monica</strong><span>Product &amp; Design Lead · 2022 — 2023</span></div>
@@ -195,6 +200,19 @@
           </div>
           <p class="music-hint">转动圆盘切歌 · 点击中间播放</p>
         </section>
+        <section class="stickers-note" id="stickers-note" hidden aria-label="Stickers 便签">
+          <div class="sticker-note-toolbar" id="sticker-note-toolbar">
+            <button class="sticker-note-control sticker-note-close" type="button" data-app-window-action="close" aria-label="关闭便签"></button>
+            <span class="sticker-note-title">Stickers</span>
+            <span class="sticker-note-fold" aria-hidden="true"></span>
+            <span class="sticker-note-size" aria-hidden="true"></span>
+          </div>
+          <textarea id="sticker-note-content" aria-label="便签内容" spellcheck="true">我有一个用了很久的签名：If it is what you wanna be, whatever it is, it's ok.
+
+人终有一死，应该随心所欲地活着。这个 fucking world 是没有标准答案的，所有东西都应当取决于你想不想要。
+
+努力去追求自己想要的，尝试所有好奇的，不畏手畏脚因为可能的失败担惊受怕，不被世俗的眼光和既定的规则绑架，去创造而非去 follow，去一拍手对自己说：为什么不可以呢？</textarea>
+        </section>
       </section>
 
       <section class="launchpad" id="launchpad" hidden aria-label="启动台">
@@ -218,6 +236,107 @@
           <p><strong>小公司只能做非共识赛道。</strong>在大公司还没反应过来的时候，用速度博得先机，再在稀缺的窗口期里建立技术、数据、生态或用户心智。</p>
           <p>重点是想清楚各自的优势在哪，在各自的生态位上找准发力点。不要拿自己的短板和他人的长板拼。</p>
           <a href="https://m.okjike.com/users/5F031897-700A-47B0-871D-8BDC4C23EF7D" target="_blank" rel="noopener">在即刻继续阅读 ↗</a>
+        </article>
+      </section>
+
+      <section class="reader-modal" id="personal-agent-modal" hidden aria-label="Personal Agent 产品笔记">
+        <button class="reader-backdrop" type="button" data-close-personal-agent aria-label="关闭文章"></button>
+        <article class="reader-paper reader-paper--agent">
+          <button class="reader-close" type="button" data-close-personal-agent aria-label="关闭文章">×</button>
+          <p class="eyebrow">2026.09.03 · PRODUCT THESIS</p>
+          <h2>一个关于 Personal Agent 产品形态的判断，我是怎么推翻、又重新思考它的</h2>
+          <p class="reader-subtitle">On revisiting a thesis about Personal Agent</p>
+          <p>今年二月份刚开始做 Personal Agent 的时候，我其实有一个挺大胆的产品判断：</p>
+          <p><strong>Personal Agent 可能根本不需要一个很重的 App。</strong></p>
+          <p>我当时觉得，它更应该进入用户已经存在的 communication layer，比如 iMessage、WhatsApp，像一个真正的联系人一样存在于你的好友列表里。App 可以有，但更多是后台，负责设置、管理和查看复杂的信息。</p>
+          <p>为什么当时会这么想？</p>
+          <p>因为我觉得 Agent 和传统软件有一个很本质的区别。</p>
+          <p>传统 App 为什么需要那么多 UI？因为用户需要自己完成操作。我要先找到一个入口，点进去，再选一个东西，再配置几个选项……通过一系列操作，最后得到我要的结果。</p>
+          <p>但 Agent 不一样。</p>
+          <p><strong>Agent 的核心价值应该是交付结果，而不是提供操作界面。</strong></p>
+          <p>如果我可以直接用自然语言告诉它我要什么，而中间的过程都由 Agent 自己完成，那么很多传统 UI 的必要性其实是在下降的。</p>
+          <p>最后大量 Agent 的前台交互，可能都可以坍缩成非常简单的东西：</p>
+          <p><strong>Chat + 必要的结果卡片。</strong></p>
+          <p>既然这样，为什么还要让用户下载一个新的 App、记住它、主动打开它，再去找 Agent？</p>
+          <p>所以我们最早其实是沿着这个方向做的。</p>
+          <p>但真正做出来之后，很快碰到了一个问题：</p>
+          <p><strong>用户不知道这个 Agent 到底能干什么。</strong></p>
+          <p>一个 Chat interface 很简单，但简单的另一面就是缺少 affordance。用户打开以后看到一个输入框，他知道自己可以说话，却不知道“我为什么要跟你说话”“你和其他 AI 有什么不同”。</p>
+          <p>我们当时为了补这个问题，在 App 里加了很多功能引导。</p>
+          <p>但这又产生了一个新的问题：用户先在 App 里发现一个功能，点击之后，再跳到另外一个 communication channel 里真正完成任务。</p>
+          <p>两个完全独立的产品之间来回跳，整个体验变得非常割裂。</p>
+          <p>最后，我们推翻了最初的方案，开始做一个更加完整、更加独立的 App。</p>
+          <p>当时我接受了这个调整。一方面是因为最初的 solution 确实存在非常明显的问题；另一方面，我自己也没有找到一个特别好的办法解决「纯 Chat 的 discoverability」问题。</p>
+          <p>但半年以后再回头看这件事情，我有了一个不太一样的反思。</p>
+          <p><strong>我们当时发现的问题是真的，但“这个问题是真的”和“最初的 thesis 是错的”，其实是两件事情。</strong></p>
+          <p>Chat 的 discoverability 不够好，是真的。</p>
+          <p>跨 App 的链路很糟糕，也是真的。</p>
+          <p>但这些 evidence 究竟是在证明：</p>
+          <p><strong>Personal Agent 不应该存在于 communication layer？</strong></p>
+          <p>还是仅仅在证明：</p>
+          <p><strong>我们当时实现这个 thesis 的第一版 solution 不够好？</strong></p>
+          <p>现在我觉得，当时真正缺少的不是“我要不要更坚持自己的判断”，而是一套更好的方法去处理这种很难被直接验证的产品 thesis。</p>
+          <p>因为像「未来的 Personal Agent 应该长什么样」这种问题，很难做一个 A/B Test，然后第二天告诉你答案。</p>
+          <p>所以现在我会换一种方式思考：</p>
+          <p>与其问——</p>
+          <p><strong>“我要怎么证明这个判断是对的？”</strong></p>
+          <p>不如问——</p>
+          <p><strong>“如果这个判断是错的，我应该在真实世界里持续看到什么 signal？”</strong></p>
+          <p>比如，如果 Personal Agent 最终就是应该成为一个独立 App，那么我们应该逐渐看到：</p>
+          <p>用户愿意每天主动打开 Personal Agent App，并且能够形成高频习惯；</p>
+          <p>Agent 的大量核心场景依然需要复杂、可视化的 UI；</p>
+          <p>进入 IM 之后，Agent 的主动触达更多被用户理解成打扰，而不是价值；</p>
+          <p>以及 communication layer 本身的能力边界，严重限制了 Agent 完成任务。</p>
+          <p>这些都是降低这个 thesis 置信度的 signal。</p>
+          <p>反过来，如果最初的判断越来越接近真实世界，我们应该逐渐看到：</p>
+          <p>用户其实不愿意为了 Agent 多安装、主动打开一个 App；</p>
+          <p>越来越多原本复杂的产品交互，可以坍缩成 Chat + Card；</p>
+          <p>Agent 主动找到用户，比等待用户想起来主动打开它，更容易产生价值；</p>
+          <p>以及 Agent 进入用户已有的 communication layer 以后，使用频率、留存或者用户关系反而变得更好。</p>
+          <p>这些则是提高这个 thesis 置信度的 signal。</p>
+          <p>所以现在回头看，我觉得这半年给我的一个很重要的产品教训，不是：</p>
+          <p><strong>“当时我应该更相信自己。”</strong></p>
+          <p>因为这很容易变成另外一种自负。</p>
+          <p>真正的教训可能是：</p>
+          <p><strong>产品判断不是一次性判断自己到底对不对。</strong></p>
+          <p>尤其是在一个非常早期、产品范式还没有确定的领域里，更重要的能力是：</p>
+          <p><strong>先形成自己的 thesis，知道它建立在哪些关键假设上；然后提前想清楚，如果它是错的，世界应该呈现出什么样子。</strong></p>
+          <p>接下来不断观察真实世界，根据新的 evidence 调整自己的置信度。</p>
+          <p>有些 signal 让它从 60% 变成 70%。</p>
+          <p>有些反例让它从 70% 降回 40%。</p>
+          <p>直到越来越多证据出现。</p>
+          <p>可能所谓的产品判断力，并不是“我比别人更早猜中了答案”。</p>
+          <p>而是：</p>
+          <p><strong>在答案还没有出现的时候，我有自己的判断；在新的证据出现之后，我也有能力改变自己的判断。</strong></p>
+        </article>
+      </section>
+
+      <section class="reader-modal" id="today-origin-modal" hidden aria-label="Today AI 产品笔记">
+        <button class="reader-backdrop" type="button" data-close-today-origin aria-label="关闭文章"></button>
+        <article class="reader-paper reader-paper--agent">
+          <button class="reader-close" type="button" data-close-today-origin aria-label="关闭文章">×</button>
+          <p class="eyebrow">2026.10.26 · TODAY AI</p>
+          <h2>从 Monspeak 到 Today：我为什么开始做一个通用 Personal AI</h2>
+          <p class="reader-subtitle">The thesis behind Today AI</p>
+          <p>Today 最早的起点，其实不在 Today。</p>
+          <p>当时我在做 Monspeak。我想做一个完全个性化的 AI 老师：它不只是回答问题，而是能理解每个人正在学习什么、卡在哪里，并根据持续的反馈调整课程。</p>
+          <p>认真往下做之后，我发现这个产品真正难的部分，并不在“教语言”。</p>
+          <p><strong>它需要长期记住一个人，也需要根据这个人的反馈不断调整自己。</strong></p>
+          <p>一个能记住用户目标、习惯和过去互动的 Agent；一个能从用户的反应里判断什么有效、什么无效，并据此重新安排下一步的 Agent。这两种能力需要很大的 effort，也不像是某一个垂类产品应该反复从零建设的东西。</p>
+          <p>这让我开始怀疑：未来 C 端真的会有那么多彼此独立的语言 Agent、健身 Agent、学习 Agent 吗？</p>
+          <p>我的判断是，<strong>通用 Agent 会吃掉大部分垂类 Agent。</strong>因为很多看似不同的场景，底层真正需要的，是同一种能力：理解一个人，然后在长期关系中不断变得更适合这个人。</p>
+          <p>于是问题从“怎样做一个更好的 AI 老师”，变成了：</p>
+          <p><strong>下一代通用 Agent，到底应该长什么样？</strong></p>
+          <p>那时 OpenClaw 已经爆火。它让我整理出五个关于下一代 Agent 的启示：</p>
+          <p><strong>1. 本地优先。</strong>它需要尽可能在用户自己的环境里工作，才有机会真正接近个人上下文。</p>
+          <p><strong>2. 从被动响应到主动心跳。</strong>它不应该只在被提问时存在，而要能在合适的时刻主动出现。</p>
+          <p><strong>3. 融入已有的聊天软件。</strong>新的 Agent 不该要求用户重新学习一个入口，而应该进入已经存在的沟通层。</p>
+          <p><strong>4. 拥有独立身份。</strong>当 Agent 不只是一个功能，它需要成为一个可以被理解、被信任、也被期待的对象。</p>
+          <p><strong>5. Agent 的社交网络。</strong>当 Agent 能代表人去协作、去连接，关系本身也会成为新的产品层。</p>
+          <p>今天回看，这五个方向几乎都已经应验了，或者至少每个方向都出现了相应的产品。</p>
+          <p>但我也很快意识到，方向正确并不代表现在就适合做。不是每个方向都 ready，也不是每种尝试都有足够低的成本。</p>
+          <p>所以 Today 真正要回答的，并不是“下一代 Agent 可以做什么”，而是：<strong>在这些正确但尚未完全成熟的方向里，我们现在究竟应该把赌注押在哪里？</strong></p>
+          <p>这也是 Today 后续故事的开始。</p>
         </article>
       </section>
 
@@ -288,6 +407,10 @@
       <button class="dock-app" type="button" data-app="Music" data-icon="assets/icons/music.png" aria-label="打开 Music">
         <img src="assets/icons/music.png" alt="" />
         <span>Music</span>
+      </button>
+      <button class="dock-app" type="button" data-app="Stickers" data-icon="assets/icons/stickers.png" aria-label="打开 Stickers">
+        <img src="assets/icons/stickers.png" alt="" />
+        <span>Stickers</span>
       </button>
       <button class="dock-app" type="button" data-app="App Store" data-icon="assets/icons/app-store.png" aria-label="打开 App Store">
         <img src="assets/icons/app-store.png" alt="" />
