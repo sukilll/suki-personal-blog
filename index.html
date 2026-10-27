@@ -343,37 +343,31 @@
           <p>记忆是当时让我觉得值得认真下注的方向之一。长程记忆不再只是一个模糊的愿景，研究开始把它拆成可以被衡量的问题：跨 session 的信息能不能被找回，时间变化后的偏好能不能被更新，不同阶段的对话能不能被连起来推理。</p>
           <figure class="memory-signal-chart" aria-labelledby="memory-signal-title">
             <div class="memory-signal-heading">
-              <span>THE MEMORY SIGNAL · 2026.01 — 03</span>
-              <strong id="memory-signal-title">研究问题正在从“记住”走向“理解人，并替人行动”</strong>
+              <span>2026 年初 · 长程记忆的真实进展</span>
+              <strong id="memory-signal-title">为什么我判断：记忆很快会跨过产品化门槛</strong>
             </div>
-            <div class="memory-pulse-list" aria-label="2026 年第一季度的代表性记忆研究">
-              <div class="memory-pulse memory-pulse--jan">
-                <time>JAN</time>
-                <div class="memory-pulse-copy">
-                  <p><strong>1–3 years</strong><span>个人长期轨迹</span></p>
-                  <p><strong>2,029</strong><span>sessions · 400 tool-use tasks</span></p>
-                  <p><strong>91.3%</strong><span>tasks require long-term memory</span></p>
-                  <small>从对话事实，走向真实个人历史与隐含偏好的补全。</small>
+            <div class="memory-bar-chart" role="img" aria-label="三项长程记忆研究数据：91.3% 的任务需要长期记忆，压缩后保留 96% 的检索质量，复杂多源任务中的最高准确率为 55.2%">
+              <div class="memory-chart-axis" aria-hidden="true"><span>100%</span><span>50%</span><span>0</span></div>
+              <div class="memory-chart-bars">
+                <div class="memory-bar-item">
+                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--need"><strong>91.3%</strong></div></div>
+                  <h3>真实任务离不开记忆</h3>
+                  <p>400 个工具任务里，91.3% 必须用到历史信息才能完成。</p>
                 </div>
-              </div>
-              <div class="memory-pulse memory-pulse--feb">
-                <time>FEB</time>
-                <div class="memory-pulse-copy">
-                  <p><strong>user cards</strong><span>narrative memory</span></p>
-                  <small>把零散对话整理成随时间演进的个人叙事，而不只是检索片段。</small>
+                <div class="memory-bar-item">
+                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--retain"><strong>96%</strong></div></div>
+                  <h3>工程成本开始降下来</h3>
+                  <p>把历史压缩到原来的 1/11 后，仍保留 96% 的检索效果。</p>
                 </div>
-              </div>
-              <div class="memory-pulse memory-pulse--mar">
-                <time>MAR</time>
-                <div class="memory-pulse-copy">
-                  <p><strong>11×</strong><span>context compression</span></p>
-                  <p><strong>96%</strong><span>of verbatim retrieval quality</span></p>
-                  <p class="memory-pulse-caveat"><strong>55.2%</strong><span>best accuracy on LifeBench</span></p>
-                  <small>工程成本开始下降，但跨来源、长时程的理解仍然很难。</small>
+                <div class="memory-bar-item memory-bar-item--limit">
+                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--limit"><strong>55.2%</strong></div></div>
+                  <h3>但复杂场景还做不稳</h3>
+                  <p>在多来源、长时程的问题里，最强系统也只做到 55.2%。</p>
                 </div>
               </div>
             </div>
-            <figcaption>代表性论文：CloneMem、Mem2ActBench（1 月）；TraceMem（2 月）；Structured Distillation、LifeBench（3 月）。</figcaption>
+            <p class="memory-chart-conclusion">它不再是“能不能做”的问题，而是“怎样做得可靠”的问题。</p>
+            <figcaption>三组数据来自 2026 年 1 至 3 月的 Mem2ActBench、Structured Distillation 与 LifeBench。百分比来自不同研究，用来呈现信号，不代表同一项性能排名。</figcaption>
           </figure>
           <p>这不意味着问题已经被解决。恰恰相反，LifeBench 里最强的记忆系统也只有 55.2% 的准确率。但这组信号让我看到：长程记忆已经不再是一个根本做不到的问题，而是在快速变成一套可以被持续优化的系统能力。我判断，它会是一个很快成熟的技术方向。</p>
           <p>与此同时，我自己在使用那些以 session 为核心的产品时，也明显感觉到长程记忆做得越来越好。它们开始能把今天说的话和很久以前的上下文重新连起来，而不是把每一次对话都当成孤岛。</p>

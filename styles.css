@@ -2260,92 +2260,107 @@ a:focus-visible,
   line-height: 1.25;
 }
 
-.memory-pulse-list {
+.memory-bar-chart {
   position: relative;
   display: grid;
-  gap: 18px;
-  margin: 25px 0 20px;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  margin: 27px 0 14px;
 }
 
-.memory-pulse-list::before {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 28px;
-  width: 1px;
-  background: #d3d6de;
-  content: "";
-}
-
-.memory-pulse {
-  position: relative;
-  display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 13px;
-}
-
-.memory-pulse time {
-  position: relative;
-  z-index: 1;
-  width: 28px;
-  height: 18px;
-  padding-top: 3px;
-  border: 1px solid #c7cad2;
-  border-radius: 10px;
-  background: #f7f7f8;
-  color: #777b87;
+.memory-chart-axis {
+  display: flex;
+  height: 148px;
+  padding-bottom: 1px;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #9a9da7;
   font-family: var(--mono);
   font-size: 8px;
   line-height: 1;
-  text-align: center;
+  text-align: right;
 }
 
-.memory-pulse--mar time {
-  border-color: #9bbdf4;
-  color: #286de1;
-}
-
-.memory-pulse-copy {
+.memory-chart-bars {
   display: grid;
-  gap: 5px;
-  padding-bottom: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
 }
 
-.memory-pulse-copy p {
+.memory-bar-item {
+  display: grid;
+  grid-template-rows: 148px auto 1fr;
+  gap: 8px;
+  min-width: 0;
+}
+
+.memory-bar-track {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0;
-  align-items: baseline;
+  min-height: 148px;
+  padding: 0 8px;
+  align-items: end;
+  border-bottom: 1px solid #cfd2d9;
+  background-image: linear-gradient(to bottom, transparent 0, transparent 49.5%, #e1e3e8 49.5%, #e1e3e8 50.2%, transparent 50.2%, transparent 99.3%, #d2d4db 99.3%);
 }
 
-.memory-pulse-copy p strong {
-  color: #282b35;
+.memory-bar-fill {
+  position: relative;
+  width: 100%;
+  min-height: 22px;
+  border-radius: 4px 4px 0 0;
+  background: #397ce9;
+}
+
+.memory-bar-fill--need {
+  height: 91.3%;
+  background: #3a76d6;
+}
+
+.memory-bar-fill--retain {
+  height: 96%;
+  background: #5296ed;
+}
+
+.memory-bar-fill--limit {
+  height: 55.2%;
+  background: #d38d5e;
+}
+
+.memory-bar-fill strong {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  color: #2b2e38;
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: -0.04em;
+  transform: translateX(-50%);
 }
 
-.memory-pulse--mar .memory-pulse-copy p strong {
-  color: #286de1;
+.memory-bar-item h3 {
+  margin: 0;
+  color: #292c35;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
-.memory-pulse-copy p span {
-  color: #767984;
-  font-family: var(--mono);
-  font-size: 9px;
+.memory-bar-item p {
+  margin: 0;
+  color: #777a84;
+  font-size: 10px;
+  line-height: 1.48;
 }
 
-.memory-pulse-copy small {
-  max-width: 390px;
-  margin-top: 2px;
-  color: #737681;
-  font-size: 11px;
-  line-height: 1.55;
-}
-
-.memory-pulse-copy .memory-pulse-caveat strong {
-  color: #b26637;
+.memory-chart-conclusion {
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid #dfe1e7;
+  color: #292c35;
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.35;
 }
 
 .memory-signal-chart figcaption {
