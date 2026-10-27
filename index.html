@@ -343,34 +343,47 @@
           <p>记忆是当时让我觉得值得认真下注的方向之一。长程记忆不再只是一个模糊的愿景，研究开始把它拆成可以被衡量的问题：跨 session 的信息能不能被找回，时间变化后的偏好能不能被更新，不同阶段的对话能不能被连起来推理。</p>
           <figure class="memory-signal-chart" aria-labelledby="memory-signal-title">
             <div class="memory-signal-heading">
-              <span>2026 年初 · 长程记忆的真实进展</span>
-              <strong id="memory-signal-title">为什么我判断：记忆很快会跨过产品化门槛</strong>
+              <span>ARXIV · 2026 年第一季度</span>
+              <strong id="memory-signal-title">与 Agent 记忆相关的论文，连续三个月上涨</strong>
             </div>
-            <div class="memory-bar-chart" role="img" aria-label="三项长程记忆研究数据：91.3% 的任务需要长期记忆，压缩后保留 96% 的检索质量，复杂多源任务中的最高准确率为 55.2%">
-              <div class="memory-chart-axis" aria-hidden="true"><span>100%</span><span>50%</span><span>0</span></div>
-              <div class="memory-chart-bars">
-                <div class="memory-bar-item">
-                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--need"><strong>91.3%</strong></div></div>
-                  <h3>真实任务离不开记忆</h3>
-                  <p>400 个工具任务里，91.3% 必须用到历史信息才能完成。</p>
-                </div>
-                <div class="memory-bar-item">
-                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--retain"><strong>96%</strong></div></div>
-                  <h3>工程成本开始降下来</h3>
-                  <p>把历史压缩到原来的 1/11 后，仍保留 96% 的检索效果。</p>
-                </div>
-                <div class="memory-bar-item memory-bar-item--limit">
-                  <div class="memory-bar-track"><div class="memory-bar-fill memory-bar-fill--limit"><strong>55.2%</strong></div></div>
-                  <h3>但复杂场景还做不稳</h3>
-                  <p>在多来源、长时程的问题里，最强系统也只做到 55.2%。</p>
-                </div>
-              </div>
+            <div class="memory-count-chart" role="img" aria-label="2026 年 1 月至 3 月，Agent Memory 相关论文的 arXiv 月度数量从 210 篇升至 277 篇">
+              <svg viewBox="0 0 520 250" aria-hidden="true" focusable="false">
+                <g class="memory-chart-grid">
+                  <line x1="58" y1="32" x2="492" y2="32" />
+                  <line x1="58" y1="84" x2="492" y2="84" />
+                  <line x1="58" y1="136" x2="492" y2="136" />
+                  <line x1="58" y1="188" x2="492" y2="188" />
+                </g>
+                <g class="memory-chart-axis-labels">
+                  <text x="46" y="36" text-anchor="end">300</text>
+                  <text x="46" y="88" text-anchor="end">200</text>
+                  <text x="46" y="140" text-anchor="end">100</text>
+                  <text x="46" y="192" text-anchor="end">0</text>
+                </g>
+                <path class="memory-chart-area" d="M112 79 L270 63 L428 44 L428 188 L112 188 Z" />
+                <path class="memory-chart-line" d="M112 79 L270 63 L428 44" />
+                <g class="memory-chart-points">
+                  <circle cx="112" cy="79" r="5" />
+                  <circle cx="270" cy="63" r="5" />
+                  <circle cx="428" cy="44" r="5" />
+                </g>
+                <g class="memory-chart-values">
+                  <text x="112" y="66" text-anchor="middle">210</text>
+                  <text x="270" y="50" text-anchor="middle">241</text>
+                  <text x="428" y="31" text-anchor="middle">277</text>
+                </g>
+                <g class="memory-chart-months">
+                  <text x="112" y="218" text-anchor="middle">1 月</text>
+                  <text x="270" y="218" text-anchor="middle">2 月</text>
+                  <text x="428" y="218" text-anchor="middle">3 月</text>
+                </g>
+                <text class="memory-chart-y-title" x="14" y="122" text-anchor="middle" transform="rotate(-90 14 122)">论文数量</text>
+              </svg>
             </div>
-            <p class="memory-chart-conclusion">它不再是“能不能做”的问题，而是“怎样做得可靠”的问题。</p>
-            <figcaption>三组数据来自 2026 年 1 至 3 月的 Mem2ActBench、Structured Distillation 与 LifeBench。百分比来自不同研究，用来呈现信号，不代表同一项性能排名。</figcaption>
+            <p class="memory-chart-conclusion">一月到三月，月度论文数量从 210 篇增长到 277 篇，增幅约 <strong>32%</strong>。</p>
+            <figcaption>统计口径：arXiv 中标题或摘要同时包含 “memory” 与 “agent” 的论文；按首次提交月份统计。论文数量不是能力本身，但能反映研究和工程关注度的升温。</figcaption>
           </figure>
-          <p>这不意味着问题已经被解决。恰恰相反，LifeBench 里最强的记忆系统也只有 55.2% 的准确率。但这组信号让我看到：长程记忆已经不再是一个根本做不到的问题，而是在快速变成一套可以被持续优化的系统能力。我判断，它会是一个很快成熟的技术方向。</p>
-          <p>与此同时，我自己在使用那些以 session 为核心的产品时，也明显感觉到长程记忆做得越来越好。它们开始能把今天说的话和很久以前的上下文重新连起来，而不是把每一次对话都当成孤岛。</p>
+          <p>论文数量不等于技术成熟。但对我来说，它是一个很强的 timing signal：大家开始集中解决同一类问题，方案也开始从“能不能记住”进入“怎么管理、压缩和使用记忆”的工程细节。与此同时，我自己在使用那些以 session 为核心的产品时，也明显感觉到长程记忆做得越来越好：它们开始能把今天说的话和很久以前的上下文重新连起来，而不是把每一次对话都当成孤岛。</p>
           <p>当然，信号也不是单向的。同一批研究仍然显示，面对很长的历史，许多系统的表现会显著下降。这恰恰让我觉得它像一个正在成熟、但还没有被完全吃透的方向：能力已经开始跨过可用门槛，产品形态却仍然有很大的空间。</p>
           <p>Agent 有了记忆以后，最直接的变化当然是它能更懂用户：理解一个人的偏好、习惯和正在经历的事情；帮忙做事时更容易做到位；用户也不需要在每一次对话里，从头重复那些已经说过的上下文。</p>
           <p>但我觉得记忆真正有价值的地方，不止是让回答更像“懂你”。它改变的是 Agent 工作的时机。<strong>最有价值的状态，是用户还没有开口，Agent 已经知道什么值得处理，并把事情办好了。</strong></p>
