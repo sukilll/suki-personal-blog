@@ -341,8 +341,41 @@
           <p>不是越早布局越好。太超前的产品，很容易跑在技术稳定性、用户需求和使用习惯之前，最后死在沙滩上。</p>
           <p><strong>更重要的不是抢先讲出未来，而是判断一项能力何时从“可以做”变成“值得做”。</strong></p>
           <p>记忆是当时让我觉得值得认真下注的方向之一。长程记忆不再只是一个模糊的愿景，研究开始把它拆成可以被衡量的问题：跨 session 的信息能不能被找回，时间变化后的偏好能不能被更新，不同阶段的对话能不能被连起来推理。</p>
-          <p>2024 年的 LoCoMo 已经在用平均约 600 轮、16K token、最多 32 个 session 的长对话来测试这件事。到了 2025 年，LongMemEval 把测试历史扩展到约 11.5 万 token，甚至 500 个 session、约 150 万 token，并开始专门衡量跨 session 推理、时间推理和用户信息更新。</p>
-          <p>更重要的是，进展开始不只是展示性的 demo。LongMemEval 的实验里，事实扩展索引让记忆检索的 recall@k 提升了 4%，下游问答提升了 5%；时间感知的索引和查询扩展，又让时间推理场景中的记忆召回提升了 7% 到 11%。这当然不意味着问题已经被解决，但至少说明，长程记忆正在从“模型记不住”的单点问题，变成一套可以持续优化的系统能力。</p>
+          <figure class="memory-signal-chart" aria-labelledby="memory-signal-title">
+            <div class="memory-signal-heading">
+              <span>THE MEMORY SIGNAL · 2026.01 — 03</span>
+              <strong id="memory-signal-title">研究问题正在从“记住”走向“理解人，并替人行动”</strong>
+            </div>
+            <div class="memory-pulse-list" aria-label="2026 年第一季度的代表性记忆研究">
+              <div class="memory-pulse memory-pulse--jan">
+                <time>JAN</time>
+                <div class="memory-pulse-copy">
+                  <p><strong>1–3 years</strong><span>个人长期轨迹</span></p>
+                  <p><strong>2,029</strong><span>sessions · 400 tool-use tasks</span></p>
+                  <p><strong>91.3%</strong><span>tasks require long-term memory</span></p>
+                  <small>从对话事实，走向真实个人历史与隐含偏好的补全。</small>
+                </div>
+              </div>
+              <div class="memory-pulse memory-pulse--feb">
+                <time>FEB</time>
+                <div class="memory-pulse-copy">
+                  <p><strong>user cards</strong><span>narrative memory</span></p>
+                  <small>把零散对话整理成随时间演进的个人叙事，而不只是检索片段。</small>
+                </div>
+              </div>
+              <div class="memory-pulse memory-pulse--mar">
+                <time>MAR</time>
+                <div class="memory-pulse-copy">
+                  <p><strong>11×</strong><span>context compression</span></p>
+                  <p><strong>96%</strong><span>of verbatim retrieval quality</span></p>
+                  <p class="memory-pulse-caveat"><strong>55.2%</strong><span>best accuracy on LifeBench</span></p>
+                  <small>工程成本开始下降，但跨来源、长时程的理解仍然很难。</small>
+                </div>
+              </div>
+            </div>
+            <figcaption>代表性论文：CloneMem、Mem2ActBench（1 月）；TraceMem（2 月）；Structured Distillation、LifeBench（3 月）。</figcaption>
+          </figure>
+          <p>这不意味着问题已经被解决。恰恰相反，LifeBench 里最强的记忆系统也只有 55.2% 的准确率。但这组信号让我看到：长程记忆已经不再是一个根本做不到的问题，而是在快速变成一套可以被持续优化的系统能力。我判断，它会是一个很快成熟的技术方向。</p>
           <p>与此同时，我自己在使用那些以 session 为核心的产品时，也明显感觉到长程记忆做得越来越好。它们开始能把今天说的话和很久以前的上下文重新连起来，而不是把每一次对话都当成孤岛。</p>
           <p>当然，信号也不是单向的。同一批研究仍然显示，面对很长的历史，许多系统的表现会显著下降。这恰恰让我觉得它像一个正在成熟、但还没有被完全吃透的方向：能力已经开始跨过可用门槛，产品形态却仍然有很大的空间。</p>
           <p>Agent 有了记忆以后，最直接的变化当然是它能更懂用户：理解一个人的偏好、习惯和正在经历的事情；帮忙做事时更容易做到位；用户也不需要在每一次对话里，从头重复那些已经说过的上下文。</p>
