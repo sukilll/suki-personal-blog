@@ -70,6 +70,11 @@ const monspeakApp = {
   developer: "NoMoreBoring LLC",
   category: "Education",
   platform: "iPhone · iPad",
+  rating: "4.8",
+  ratings: "8 Ratings",
+  age: "4+",
+  size: "91.6 MB",
+  version: "1.8.0",
   url: "https://apps.apple.com/us/app/speak-languages-monspeak/id6743023404",
   icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/eb/76/df/eb76dfac-e659-ec33-4528-628c0cbd9045/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/1200x630wa.png"
 };
@@ -311,30 +316,51 @@ function createGenericAppWindow(appName, iconSrc) {
       </div>
     ` : isAppStore ? `
       <div class="app-store-app">
-        <aside class="app-store-sidebar" aria-label="App Store 分类">
-          <strong>Discover</strong>
-          <span class="is-selected">Made by Suki</span>
-          <span>Productivity</span>
-          <span>Education</span>
-          <span>Creativity</span>
-        </aside>
-        <section class="app-store-main" aria-label="Suki 的产品">
-          <header class="app-store-heading">
-            <p>MADE BY SUKI</p>
-            <h2>Things I made,<br />for real life.</h2>
-            <span>Independent products, experiments, and ideas.</span>
-          </header>
-          <article class="store-product-card">
+        <section class="app-store-detail" aria-label="Monspeak App Store 详情">
+          <header class="app-store-product-header">
             <img class="store-product-icon" src="${monspeakApp.icon}" alt="Monspeak App 图标" />
             <div class="store-product-details">
-              <p class="store-product-category">${monspeakApp.category} · ${monspeakApp.platform}</p>
-              <h3>${monspeakApp.name}</h3>
+              <h2>${monspeakApp.name}</h2>
               <p class="store-product-tagline">${monspeakApp.tagline}</p>
-              <p class="store-product-copy">An AI speaking partner for practicing real conversations, getting useful feedback, and building a language habit.</p>
-              <span class="store-product-developer">${monspeakApp.developer}</span>
+              <p class="store-product-developer">${monspeakApp.developer}</p>
             </div>
-            <a class="store-product-link" href="${monspeakApp.url}" target="_blank" rel="noopener">VIEW</a>
-          </article>
+            <a class="store-product-link" href="${monspeakApp.url}" target="_blank" rel="noopener">下载</a>
+          </header>
+          <dl class="app-store-facts" aria-label="应用信息">
+            <div>
+              <dt>${monspeakApp.rating}<small> / 5</small></dt>
+              <dd>${monspeakApp.ratings}</dd>
+            </div>
+            <div>
+              <dt>${monspeakApp.age}</dt>
+              <dd>年龄分级</dd>
+            </div>
+            <div>
+              <dt>${monspeakApp.category}</dt>
+              <dd>类别</dd>
+            </div>
+            <div>
+              <dt>${monspeakApp.size}</dt>
+              <dd>大小</dd>
+            </div>
+          </dl>
+          <section class="app-store-update">
+            <div>
+              <p>WHAT'S NEW</p>
+              <h3>Version ${monspeakApp.version}</h3>
+            </div>
+            <p>优化对话练习体验，支持更清晰的任务完成提示与更自然的 AI 回复建议。</p>
+          </section>
+          <section class="app-store-description">
+            <p class="app-store-section-label">ABOUT THIS APP</p>
+            <h3>Your AI speaking partner.</h3>
+            <p>和 AI 练习真实对话，随时开口说。Monspeak 会在对话之后给出更地道的表达建议，帮你把练习变成持续的语言习惯。</p>
+            <ul>
+              <li>实时 AI 对话与多语言口语练习</li>
+              <li>场景角色卡与回复提示</li>
+              <li>表达优化、点按查词与复习总结</li>
+            </ul>
+          </section>
         </section>
       </div>
     ` : `
