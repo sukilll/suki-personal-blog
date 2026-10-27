@@ -64,6 +64,15 @@ const lifePhotos = Array.from({ length: 8 }, (_, index) => ({
   src: `assets/photos/life-${String(index + 1).padStart(2, "0")}.jpg`,
   alt: `Suki 的生活照片 ${index + 1}`
 }));
+const monspeakApp = {
+  name: "Speak Languages-Monspeak",
+  tagline: "Monspeak: learn real talk",
+  developer: "NoMoreBoring LLC",
+  category: "Education",
+  platform: "iPhone · iPad",
+  url: "https://apps.apple.com/us/app/speak-languages-monspeak/id6743023404",
+  icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/eb/76/df/eb76dfac-e659-ec33-4528-628c0cbd9045/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/1200x630wa.png"
+};
 const notesArticles = [
   {
     id: "personal-agent",
@@ -217,13 +226,15 @@ function createGenericAppWindow(appName, iconSrc) {
   const windowOffset = (genericAppWindows.size % 5) * 32;
   const isPhotos = appName === "Photos";
   const isNotes = appName === "Notes";
+  const isAppStore = appName === "App Store";
   windowElement.className = "mac-window app-window";
   windowElement.classList.toggle("is-photos-window", isPhotos);
   windowElement.classList.toggle("is-notes-window", isNotes);
+  windowElement.classList.toggle("is-app-store-window", isAppStore);
   windowElement.dataset.window = appName;
   windowElement.setAttribute("aria-label", `${appName} 窗口`);
-  windowElement.style.left = isPhotos || isNotes ? "50%" : `calc(50% + ${windowOffset - 96}px)`;
-  windowElement.style.top = isPhotos || isNotes ? "10vh" : `calc(15vh + ${windowOffset}px)`;
+  windowElement.style.left = isPhotos || isNotes || isAppStore ? "50%" : `calc(50% + ${windowOffset - 96}px)`;
+  windowElement.style.top = isPhotos || isNotes || isAppStore ? "10vh" : `calc(15vh + ${windowOffset}px)`;
   windowElement.innerHTML = `
     <div class="compact-toolbar window-drag-handle">
       <div class="traffic-controls" aria-label="窗口控制">
@@ -298,6 +309,34 @@ function createGenericAppWindow(appName, iconSrc) {
           <article class="notes-reader" data-notes-reader></article>
         </section>
       </div>
+    ` : isAppStore ? `
+      <div class="app-store-app">
+        <aside class="app-store-sidebar" aria-label="App Store 分类">
+          <strong>Discover</strong>
+          <span class="is-selected">Made by Suki</span>
+          <span>Productivity</span>
+          <span>Education</span>
+          <span>Creativity</span>
+        </aside>
+        <section class="app-store-main" aria-label="Suki 的产品">
+          <header class="app-store-heading">
+            <p>MADE BY SUKI</p>
+            <h2>Things I made,<br />for real life.</h2>
+            <span>Independent products, experiments, and ideas.</span>
+          </header>
+          <article class="store-product-card">
+            <img class="store-product-icon" src="${monspeakApp.icon}" alt="Monspeak App 图标" />
+            <div class="store-product-details">
+              <p class="store-product-category">${monspeakApp.category} · ${monspeakApp.platform}</p>
+              <h3>${monspeakApp.name}</h3>
+              <p class="store-product-tagline">${monspeakApp.tagline}</p>
+              <p class="store-product-copy">An AI speaking partner for practicing real conversations, getting useful feedback, and building a language habit.</p>
+              <span class="store-product-developer">${monspeakApp.developer}</span>
+            </div>
+            <a class="store-product-link" href="${monspeakApp.url}" target="_blank" rel="noopener">VIEW</a>
+          </article>
+        </section>
+      </div>
     ` : `
       <div class="app-window-body">
         <img alt="" />
@@ -310,7 +349,7 @@ function createGenericAppWindow(appName, iconSrc) {
   `;
 
   windowElement.querySelector(".compact-toolbar strong").textContent = appName;
-  if (!isPhotos && !isNotes) {
+  if (!isPhotos && !isNotes && !isAppStore) {
     windowElement.querySelector(".app-window-body h2").textContent = appName;
     windowElement.querySelector(".app-window-body > p:not(.eyebrow)").textContent = appCopy[appName] || "这个 App 已经可以打开，内容会在后续版本接入。";
     const icon = windowElement.querySelector(".app-window-body > img");
