@@ -2363,6 +2363,24 @@ a:focus-visible,
     transform: translateY(50vh) scale(0.12);
   }
 
+  /* Keep the App Store as a desktop window in the in-app browser's mid-width view. */
+  @media (min-width: 520px) {
+    .app-window.is-app-store-window {
+      top: 48px;
+      right: auto;
+      bottom: auto;
+      left: 50%;
+      width: min(680px, calc(100vw - 40px));
+      height: min(548px, calc(100dvh - 128px));
+      transform: translateX(-50%);
+    }
+
+    .app-window.is-app-store-window.is-minimized,
+    .app-window.is-app-store-window.is-closed {
+      transform: translateX(-50%) translateY(40vh) scale(0.12);
+    }
+  }
+
   .app-window.is-notes-window {
     min-height: 0;
   }
